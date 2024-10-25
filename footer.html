@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/output.css">
+    <style>
+        @keyframes shine {
+            0% {
+                background-position: 0;
+            }
+            60% {
+                background-position: 180px;
+            }
+            100% {
+                background-position: 180px;
+            }
+        }
+        
+        .btn-shine {
+            color: #fff;
+            background: linear-gradient(to right, #9f9f9f 0, #fff 10%, #868686 20%);
+            background-position: 0;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s infinite linear;
+            animation-fill-mode: forwards;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .text-container {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin: 0 5px;
+            width: 20px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <footer class="fixed bottom-2 right-2 px-2 py-2 bg-white rounded-lg shadow-[2px_4px_11px_0px_rgba(0,_0,_0,_0.114)]">
+        <div class="btn-shine text-sm">
+            Design & Developed By
+            <span class="text-container">
+                <span class="font-bold">{</span>
+                <img src="./geekhead.png" alt="geekhead" class="icon">
+                <span class="font-bold">}</span>
+            </span>
+        </div>
+    </footer>
+</body>
+</html>

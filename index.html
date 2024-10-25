@@ -5,11 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tajurba</title>
     <link rel="stylesheet" href="css/output.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+     integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+    </script>
+    
+    <script>
+        $(function () {
+                $("#footer").load("footer.html");
+        });
+</script>
 </head>
 <body class="bg-white">
     <div class="min-h-screen flex flex-col items-center justify-start pt-8">
         <img src="./Tajurba-logo.png" alt="Tajurba" class="w-48 max-w-xs mb-8">
-        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
+        <div class="bg-white p-8 rounded-xl  w-full max-w-md">
             <!-- Tab Navigation -->
             <div class="mb-6 border p-2 rounded-full">
                 <ul class="flex relative">
@@ -54,6 +63,8 @@
             </div>
         </div>
     </div>
+
+   <div id="footer"></div>
 
     <script>
         function showTab(tabName) {
