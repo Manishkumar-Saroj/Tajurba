@@ -7,66 +7,82 @@
     <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="bg-white">
-<div class="min-h-screen flex flex-col items-center justify-start pt-8">
-    <img src="./Tajurba-logo.png" alt="Tajurba" class="w-48 max-w-xs mb-8">
-    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
-        <div class="mb-6 border p-2 rounded-full">
-            <ul class="flex">
-                <li class="flex-1 mr-1">
-                    <a id="memberTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full" href="#" onclick="showTab('member')">Member Login</a>
-                </li>
-                <li class="flex-1">
-                    <a id="adminTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full" href="#" onclick="showTab('admin')">Admin Login</a>
-                </li>
-            </ul>
-        </div>
-        <div id="member" class="tab-content">
-            <form>
-                <div class="mb-4">
-                    <label for="memberIdentifier" class="block text-gray-700 text-sm font-bold mb-2">Mobile Number</label>
-                    <input type="text" id="memberIdentifier" name="memberIdentifier" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Enter your registered mobile number" required>
-                </div>
-                <div class="mb-6">
-                    <label for="memberPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                    <input type="password" id="memberPassword" name="memberPassword" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-teal-900 text-white py-2 rounded-lg hover:from-blue-600 hover:to-teal-900 transition duration-300 font-semibold">Member Login</button>
-            </form>
-        </div>
-        <div id="admin" class="tab-content hidden">
-            <form>
-                <div class="mb-4">
-                    <label for="adminIdentifier" class="block text-gray-700 text-sm font-bold mb-2">Mobile Number</label>
-                    <input type="text" id="adminIdentifier" name="adminIdentifier" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500" placeholder="Enter your registered mobile number" required>
-                </div>
-                <div class="mb-6">
-                    <label for="adminPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                    <input type="password" id="adminPassword" name="adminPassword" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-orange-900 text-white py-2 rounded-lg hover:from-red-600 hover:to-orange-900 transition duration-300 font-semibold">Admin Login</button>
-            </form>
+    <div class="min-h-screen flex flex-col items-center justify-start pt-8">
+        <img src="./Tajurba-logo.png" alt="Tajurba" class="w-48 max-w-xs mb-8">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
+            <!-- Tab Navigation -->
+            <div class="mb-6 border p-2 rounded-full">
+                <ul class="flex relative">
+                    <li class="flex-1 mr-1">
+                        <a id="memberTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full relative z-10 transition-colors duration-300" href="#" onclick="showTab('member')">Member Login</a>
+                    </li>
+                    <li class="flex-1">
+                        <a id="adminTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full relative z-10 transition-colors duration-300" href="#" onclick="showTab('admin')">Admin Login</a>
+                    </li>
+                    <span id="tab-indicator" class="absolute bottom-0 left-0 h-full bg-gray-200 rounded-full transition-all duration-300 ease-in-out"></span>
+                </ul>
+            </div>
+            
+            <!-- Member Login Form -->
+            <div id="member" class="tab-content">
+                <form>
+                    <div class="mb-4">
+                        <label for="memberIdentifier" class="block text-gray-700 text-sm font-bold mb-2">Mobile Number</label>
+                        <input type="text" id="memberIdentifier" name="memberIdentifier" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Enter your registered mobile number" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="memberPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" id="memberPassword" name="memberPassword" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-teal-900 text-white py-2 rounded-lg hover:from-blue-600 hover:to-teal-900 transition duration-300 font-semibold">Member Login</button>
+                </form>
+            </div>
+            
+            <!-- Admin Login Form -->
+            <div id="admin" class="tab-content hidden">
+                <form>
+                    <div class="mb-4">
+                        <label for="adminIdentifier" class="block text-gray-700 text-sm font-bold mb-2">Mobile Number</label>
+                        <input type="text" id="adminIdentifier" name="adminIdentifier" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500" placeholder="Enter your registered mobile number" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="adminPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                        <input type="password" id="adminPassword" name="adminPassword" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-orange-900 text-white py-2 rounded-lg hover:from-red-600 hover:to-orange-900 transition duration-300 font-semibold">Admin Login</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-function showTab(tabName) {
-    const tabs = document.getElementsByClassName('tab-content');
-    const tabButtons = document.querySelectorAll('ul li a');
-    
-    for (let tab of tabs) {
-        tab.classList.add('hidden');
-    }
-    for (let button of tabButtons) {
-        button.classList.remove('bg-gray-200');
-    }
-    
-    document.getElementById(tabName).classList.remove('hidden');
-    document.getElementById(tabName + 'Tab').classList.add('bg-gray-200');
-}
+    <script>
+        function showTab(tabName) {
+            const tabs = document.getElementsByClassName('tab-content');
+            const tabButtons = document.querySelectorAll('ul li a');
+            const indicator = document.getElementById('tab-indicator');
+            
+            for (let tab of tabs) {
+                tab.classList.add('hidden');
+            }
+            
+            for (let button of tabButtons) {
+                button.classList.remove('text-white');
+                button.classList.add('text-blue-500');
+            }
+            
+            const activeTab = document.getElementById(tabName);
+            activeTab.classList.remove('hidden');
+            
+            const activeButton = document.getElementById(tabName + 'Tab');
+            activeButton.classList.remove('text-blue-500');
+            activeButton.classList.add('text-blue-500');
+            
+            indicator.style.width = activeButton.offsetWidth + 'px';
+            indicator.style.left = activeButton.offsetLeft + 'px';
+        }
 
-// Set default tab
-showTab('member');
-</script>
+        // Set default tab
+        showTab('member');
+    </script>
 </body>
 </html>
