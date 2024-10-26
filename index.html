@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"
      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
     </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
+    <script src="js/hammer.js"></script>
     
     <script>
         $(function () {
@@ -15,12 +17,22 @@
         });
 </script>
 </head>
-<body class="bg-white">
-    <div class="min-h-screen flex flex-col items-center justify-start pt-8">
-        <img src="./Tajurba-logo.png" alt="Tajurba" class="w-48 max-w-xs mb-8">
-        <div class="bg-white p-8 rounded-xl  w-full max-w-md">
+<body class="bg-white relative">
+    <div class="min-h-screen flex flex-col items-center justify-start pt-8 relative z-10">
+        <img src="./Tajurba-logo.png" alt="Tajurba" class="w-48 max-w-xs mb-8 relative z-20">
+        
+        <div class="pointer-events-none absolute inset-x-0 top-[120px] bottom-0 overflow-hidden [perspective:200px]">
+            <div class="absolute inset-0 [transform:rotateX(25deg)]">
+                <div id="grid" class="animate-grid [background-image:linear-gradient(to_right,theme(colors.blue.300)_2px,transparent_0),linear-gradient(to_bottom,theme(colors.blue.300)_2px,transparent_0)] [background-repeat:repeat] [background-size:60px_60px] [height:250vh] [inset:0%_0px] [margin-left:0] [transform-origin:100%_0_0] [width:100vw]">
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-white to-transparent to-90%">
+            </div>
+        </div>
+
+        <div class="bg-white bg-opacity-30 backdrop-blur-sm p-8 rounded-xl w-full max-w-md shadow-lg max-450:shadow-none relative z-20">
             <!-- Tab Navigation -->
-            <div class="mb-6 border p-2 rounded-full">
+            <div class="mb-6 border border-gray-300 p-2 rounded-full bg-white bg-opacity-70">
                 <ul class="flex relative">
                     <li class="flex-1 mr-1">
                         <a id="memberTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full relative z-10 transition-colors duration-300" href="#" onclick="showTab('member')">Member Login</a>
@@ -34,14 +46,20 @@
             
             <!-- Member Login Form -->
             <div id="member" class="tab-content">
-                <form>
+                <form class="space-y-4">
                     <div class="mb-4">
                         <label for="memberIdentifier" class="block text-gray-700 text-sm font-bold mb-2">Mobile Number</label>
                         <input type="text" id="memberIdentifier" name="memberIdentifier" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Enter your registered mobile number" required>
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <label for="memberPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                         <input type="password" id="memberPassword" name="memberPassword" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" placeholder="Enter your password" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="memberRememberMe" class="flex items-center text-gray-900">
+                            <input id="memberRememberMe" type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2">Remember me</span>
+                        </label>
                     </div>
                     <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-teal-900 text-white py-2 rounded-lg hover:from-blue-600 hover:to-teal-900 transition duration-300 font-semibold">Member Login</button>
                 </form>
@@ -49,14 +67,20 @@
             
             <!-- Admin Login Form -->
             <div id="admin" class="tab-content hidden">
-                <form>
+                <form class="space-y-4">
                     <div class="mb-4">
                         <label for="adminIdentifier" class="block text-gray-700 text-sm font-bold mb-2">Mobile Number</label>
                         <input type="text" id="adminIdentifier" name="adminIdentifier" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500" placeholder="Enter your registered mobile number" required>
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <label for="adminPassword" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                         <input type="password" id="adminPassword" name="adminPassword" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-500" placeholder="Enter your password" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="adminRememberMe" class="flex items-center text-gray-900">
+                            <input id="adminRememberMe" type="checkbox" class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                            <span class="ml-2">Remember me</span>
+                        </label>
                     </div>
                     <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-orange-900 text-white py-2 rounded-lg hover:from-red-600 hover:to-orange-900 transition duration-300 font-semibold">Admin Login</button>
                 </form>
@@ -64,13 +88,14 @@
         </div>
     </div>
 
-   <div id="footer"></div>
+    <div id="footer"></div>
 
     <script>
         function showTab(tabName) {
             const tabs = document.getElementsByClassName('tab-content');
             const tabButtons = document.querySelectorAll('ul li a');
             const indicator = document.getElementById('tab-indicator');
+            const grid = document.getElementById('grid');
             
             for (let tab of tabs) {
                 tab.classList.add('hidden');
@@ -90,10 +115,30 @@
             
             indicator.style.width = activeButton.offsetWidth + 'px';
             indicator.style.left = activeButton.offsetLeft + 'px';
+
+            // Change grid color based on the selected tab
+            if (tabName === 'admin') {
+                grid.style.backgroundImage = 'linear-gradient(to right, #FCA5A5 2px, transparent 0), linear-gradient(to bottom, #FCA5A5 2px, transparent 0)';
+            } else {
+                grid.style.backgroundImage = 'linear-gradient(to right, #93C5FD 2px, transparent 0), linear-gradient(to bottom, #93C5FD 2px, transparent 0)';
+            }
         }
 
         // Set default tab
         showTab('member');
+
+        // Add swipe functionality
+        const tabContainer = document.querySelector('.bg-white.bg-opacity-30');
+        const hammer = new Hammer(tabContainer);
+
+        hammer.on('swipeleft swiperight', function(ev) {
+            const currentTab = document.querySelector('.tab-content:not(.hidden)').id;
+            if (ev.type === 'swipeleft' && currentTab === 'member') {
+                showTab('admin');
+            } else if (ev.type === 'swiperight' && currentTab === 'admin') {
+                showTab('member');
+            }
+        });
     </script>
 </body>
 </html>
