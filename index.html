@@ -7,10 +7,7 @@
     <link rel="stylesheet" href="css/output.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"
      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
-    </script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script> -->
-    <script src="js/hammer.js"></script>
-    
+    </script>    
     <script>
         $(function () {
                 $("#footer").load("footer.html");
@@ -30,17 +27,17 @@
             </div>
         </div>
 
-        <div class="bg-white bg-opacity-30 backdrop-blur-sm p-8 rounded-xl w-full max-w-md shadow-lg max-450:shadow-none relative z-20">
+        <div class="bg-white bg-opacity-30 backdrop-blur-sm p-8 rounded-xl w-full max-w-md shadow-lg max-450:shadow-none relative z-20 touch-pan-x">
             <!-- Tab Navigation -->
-            <div class="mb-6 border border-gray-300 p-2 rounded-full bg-white bg-opacity-70">
+            <div class="mb-6 border border-gray-300 p-2 rounded-2xl bg-white bg-opacity-70">
                 <ul class="flex relative">
                     <li class="flex-1 mr-1">
-                        <a id="memberTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full relative z-10 transition-colors duration-300" href="#" onclick="showTab('member')">Member Login</a>
+                        <a id="memberTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full relative z-10 transition-colors duration-300" href="#" onclick="showTab('member')">Member</a>
                     </li>
                     <li class="flex-1">
-                        <a id="adminTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full relative z-10 transition-colors duration-300" href="#" onclick="showTab('admin')">Admin Login</a>
+                        <a id="adminTab" class="text-center block py-2 px-4 text-blue-500 font-semibold rounded-full relative z-10 transition-colors duration-300" href="#" onclick="showTab('admin')">Admin</a>
                     </li>
-                    <span id="tab-indicator" class="absolute bottom-0 left-0 h-full bg-gray-200 rounded-full transition-all duration-300 ease-in-out"></span>
+                    <span id="tab-indicator" class="absolute bottom-0 left-0 h-full bg-white rounded-2xl transition-all duration-300 ease-in-out shadow-[0_2px_8px_rgba(0,0,0,0.15)]"></span>
                 </ul>
             </div>
             
@@ -116,6 +113,13 @@
             indicator.style.width = activeButton.offsetWidth + 'px';
             indicator.style.left = activeButton.offsetLeft + 'px';
 
+            // Update shadow color based on the selected tab
+            if (tabName === 'admin') {
+                indicator.style.boxShadow = '0 2px 8px rgba(220, 38, 38, 0.2)';
+            } else {
+                indicator.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.2)';
+            }
+
             // Change grid color based on the selected tab
             if (tabName === 'admin') {
                 grid.style.backgroundImage = 'linear-gradient(to right, #FCA5A5 2px, transparent 0), linear-gradient(to bottom, #FCA5A5 2px, transparent 0)';
@@ -127,16 +131,29 @@
         // Set default tab
         showTab('member');
 
-        // Add swipe functionality
+        // Add swipe functionality using vanilla JavaScript
         const tabContainer = document.querySelector('.bg-white.bg-opacity-30');
-        const hammer = new Hammer(tabContainer);
+        let startX, moveX;
 
-        hammer.on('swipeleft swiperight', function(ev) {
+        tabContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        tabContainer.addEventListener('touchmove', (e) => {
+            moveX = e.touches[0].clientX;
+        });
+
+        tabContainer.addEventListener('touchend', () => {
             const currentTab = document.querySelector('.tab-content:not(.hidden)').id;
-            if (ev.type === 'swipeleft' && currentTab === 'member') {
-                showTab('admin');
-            } else if (ev.type === 'swiperight' && currentTab === 'admin') {
-                showTab('member');
+            const swipeThreshold = 50; // Minimum distance to trigger swipe
+            const swipeDistance = startX - moveX;
+
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0 && currentTab === 'member') {
+                    showTab('admin');
+                } else if (swipeDistance < 0 && currentTab === 'admin') {
+                    showTab('member');
+                }
             }
         });
     </script>
